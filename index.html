@@ -4,14 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Настройка таргетированной рекламы под ключ Instagram и Facebook | PLUS.TARGETS</title>
-    <meta name="description" content="Профессиональная настройка таргетированной рекламы в Instagram и Facebook под ключ. Заявки от 150₽, бесплатный тестовый период, прозрачная отчётность.">
-    <meta name="keywords" content="таргетолог, таргетированная реклама, таргет Instagram, таргет Facebook, настройка таргета, таргетолог фриланс, реклама в инстаграм, реклама в фейсбук">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Настройка таргетированной рекламы под ключ Instagram и Facebook | PLUS.TARGETS">
-    <meta property="og:description" content="Профессиональная настройка таргетированной рекламы под ключ. Бесплатный тестовый период.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://targetolo.github.io">
-    <link rel="canonical" href="https://targetolo.github.io">
     <link rel="icon" type="image/svg+xml" href="./public/logo-plus-targets.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -34,8 +26,8 @@
         .timeline::before { content: ""; position: absolute; left: 13px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(180deg, rgba(124, 60, 255, 0.9), rgba(0, 200, 255, 0.9)); }
         .timeline-item { position: relative; padding-left: 42px; }
         .timeline-item::before { content: ""; position: absolute; left: 5px; top: 9px; width: 18px; height: 18px; border-radius: 999px; background: #080818; border: 3px solid #7c3cff; box-shadow: 0 0 0 4px rgba(124, 60, 255, 0.18); }
-        [data-reveal] { opacity: 1; transform: none; transition: none; }
-        [data-reveal].is-visible { opacity: 1; transform: none; }
+        [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
         .masonry { column-count: 1; column-gap: 1.5rem; }
         .masonry-item { break-inside: avoid; margin-bottom: 1.5rem; }
         @media (min-width: 640px) { .masonry { column-count: 2; } }
@@ -380,39 +372,8 @@
                     revealObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.05, rootMargin: "0px 0px -50px 0px" });
+        }, { threshold: 0.2 });
         revealItems.forEach((item) => revealObserver.observe(item));
-
-        // If page opens with a hash (e.g. #cases), immediately reveal that section
-        function revealHash() {
-            const hash = window.location.hash;
-            if (!hash) return;
-            const target = document.querySelector(hash);
-            if (!target) return;
-            // Reveal the target and all siblings with data-reveal
-            target.classList.add("is-visible");
-            target.querySelectorAll("[data-reveal]").forEach(el => el.classList.add("is-visible"));
-            // Also scroll smoothly after a tiny delay to let layout settle
-            setTimeout(() => {
-                target.scrollIntoView({ behavior: "smooth", block: "start" });
-            }, 100);
-        }
-
-        // Handle anchor clicks — reveal target before scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener("click", (e) => {
-                const hash = link.getAttribute("href");
-                const target = document.querySelector(hash);
-                if (!target) return;
-                target.classList.add("is-visible");
-            });
-        });
-
-        if (document.readyState === "complete") {
-            revealHash();
-        } else {
-            window.addEventListener("load", revealHash);
-        }
 
         const lightbox = document.getElementById("lightbox");
         const lightboxImage = document.getElementById("lightboxImage");
@@ -445,23 +406,6 @@
         document.addEventListener("keydown", (event) => {
             if (event.key === "Escape" && lightbox.classList.contains("is-open")) closeLightbox();
         });
-
-        // Fix nav height dynamically after iOS safe area resolves
-        function updateNavOffset() {
-            const nav = document.getElementById("main-nav");
-            if (!nav) return;
-            const navH = nav.getBoundingClientRect().height;
-            // Apply to mobile sections
-            const mobileHero = document.querySelector(".block.md\\:hidden");
-            if (mobileHero) {
-                mobileHero.style.paddingTop = navH + "px";
-            }
-        }
-        // Run after paint so env() values are resolved
-        requestAnimationFrame(() => {
-            requestAnimationFrame(updateNavOffset);
-        });
-        window.addEventListener("resize", updateNavOffset);
     </script>
 
 </body>
