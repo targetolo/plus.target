@@ -34,8 +34,8 @@
         .timeline::before { content: ""; position: absolute; left: 13px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(180deg, rgba(124, 60, 255, 0.9), rgba(0, 200, 255, 0.9)); }
         .timeline-item { position: relative; padding-left: 42px; }
         .timeline-item::before { content: ""; position: absolute; left: 5px; top: 9px; width: 18px; height: 18px; border-radius: 999px; background: #080818; border: 3px solid #7c3cff; box-shadow: 0 0 0 4px rgba(124, 60, 255, 0.18); }
-        [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-        [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+        [data-reveal] { opacity: 1; transform: none; transition: none; }
+        [data-reveal].is-visible { opacity: 1; transform: none; }
         .masonry { column-count: 1; column-gap: 1.5rem; }
         .masonry-item { break-inside: avoid; margin-bottom: 1.5rem; }
         @media (min-width: 640px) { .masonry { column-count: 2; } }
